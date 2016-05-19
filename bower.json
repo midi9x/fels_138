@@ -1,0 +1,22 @@
+{
+  "name": "cakephp 2.4.1",
+  "homepage": "https://github.com/framgia/fels_138",
+  "authors": [
+    "midi9x <midi9x@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^1.11.2",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3"
+  }
+}
