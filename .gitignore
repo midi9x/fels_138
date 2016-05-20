@@ -12,3 +12,5 @@
 /app/Config/database.php
 /vendors/*
 /app/webroot/bower_components
+/.idea/*
+/app/Test/*
