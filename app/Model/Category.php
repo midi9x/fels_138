@@ -18,6 +18,13 @@ class Category extends AppModel
      *
      * @var array
      */
+
+    public $validate = [
+        'name' => [
+            'rule' => 'notEmpty'
+        ]
+    ];
+
     public $hasMany = [
         'Lesson' => [
             'className' => 'Lesson',
