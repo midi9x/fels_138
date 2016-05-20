@@ -9,20 +9,6 @@ class UsersController extends AppController
         parent::beforeFilter();
         $this->Auth->allow('register', 'login', 'logout');
     }
-
-    public $components = [
-        'Auth' => [
-            'loginAction' => [
-                'controller' => 'users',
-                'action' => 'login',
-            ],
-            'authenticate' => [
-                'Form' => [
-                    'passwordHasher' => 'Blowfish'
-                ]
-            ]
-        ]
-    ];
     
     public function register() 
     {

@@ -48,4 +48,24 @@ class Word extends AppModel
         ]
     ];
 
+    public $validate = [
+        'category_id' => [
+           'required' => [
+                'rule' => 'notEmpty',
+                'message' => 'A categories is required'
+            ],
+        ],
+
+        'content' => [
+            'required' => [
+                'rule' => 'notEmpty',
+                'message' => 'A word name is required'
+            ],
+            'unique' => [
+                'rule' => 'isUnique',
+                'message' => 'This name has already been used'
+            ],
+        ],
+    ];
+
 }
