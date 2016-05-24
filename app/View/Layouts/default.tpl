@@ -35,6 +35,9 @@
                         <li>
                             <a href="/categories">{__('Category')}</a>
                         </li>
+                        <li>
+                            <a href="/words">{__('Words')}</a>
+                        </li>
                     </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {if $this->Session->read('Auth.User')}

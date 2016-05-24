@@ -105,5 +105,26 @@ class WordComponent extends Component
         return $ids;
     }
 
+    public function wordLearned($userId)
+    {
+        $lessonModel = ClassRegistry::init('Lesson');
+        $options = [
+            'joins' => [
+                [
+                    'table' => 'lessons_words',
+                    'alias' => 'LessonWord',
+                    'type' => 'inner',
+                    'conditions' => [
+                        'LessonWord.lesson_id = Lesson.id',
+                        'Lesson.user_id = ' . $userId
+                    ]
+                ]
+            ],
+            'group' => 'Lesson.category_id',
+            'fields' => ['LessonWord.word_id']
+        ];
+
+        return $lessonModel->find('list', $options);
+    }
 
 }

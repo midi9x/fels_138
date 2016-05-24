@@ -36,4 +36,18 @@ class AppController extends Controller
     public $viewClass = 'SmartyView.Smarty';
 
     public $helpers = ['Html', 'Form', 'Session'];
+
+    public $components = [
+        'Auth' => [
+            'loginAction' => [
+                'controller' => 'users',
+                'action' => 'login',
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'passwordHasher' => 'Blowfish'
+                ]
+            ]
+        ]
+    ];
 }

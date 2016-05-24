@@ -283,3 +283,9 @@ p.copyright {
 .quick-menu {
     margin: 5px 0px;
 }
+.correct {
+    padding: 20px;
+}
+span.space {
+    margin-left: 40px;
+}

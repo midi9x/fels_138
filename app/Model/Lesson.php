@@ -40,7 +40,7 @@ class Lesson extends AppModel
             'className' => 'WordAnswer',
             'joinTable' => 'lessons_words',
             'foreignKey' => 'lesson_id',
-            'associationForeignKey' => 'word_answer_id',
+            'associationForeignKey' => 'word_answer_id'
         ]
     ];
 
