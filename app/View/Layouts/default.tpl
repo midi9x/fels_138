@@ -32,6 +32,9 @@
                         <li>
                             <a href="{$this->webroot}">{_('Home')}</a>
                         </li>
+                        <li>
+                            <a href="/categories">{__('Category')}</a>
+                        </li>
                     </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {if $this->Session->read('Auth.User')}

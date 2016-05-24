@@ -38,6 +38,9 @@ class Lesson extends AppModel
         ],
         'WordAnswer' => [
             'className' => 'WordAnswer',
+            'joinTable' => 'lessons_words',
+            'foreignKey' => 'lesson_id',
+            'associationForeignKey' => 'word_answer_id',
         ]
     ];
 
