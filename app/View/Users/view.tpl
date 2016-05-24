@@ -1,7 +1,7 @@
 <div class="col-md-3 left-side-bar text-center">
     <div class="row row-item">
         <div class="avatar-img col-md-12">
-            {$this->Html->image("uploads/{$user['avatar']}", [
+            {$this->Html->image($user['avatar'], [
                 'class' => 'img-responsive'
             ])}
         </div>

@@ -289,6 +289,7 @@ p.copyright {
 span.space {
     margin-left: 40px;
 }
+
 .left-side-bar {
     border-right: 1px solid #bebebe;
     padding-top: 15px;
@@ -334,4 +335,18 @@ span.space {
 
 .row-content-data {
     margin-bottom: 10px;
+}
+.small-with {
+    width: 30px;
+}
+.large-with {
+    width: 300px;
+}
+.medium-with {
+    width: 150px;
+}
+
+.avatar {
+    width: 20px;
+    height: 20px;
 }

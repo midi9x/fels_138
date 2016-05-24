@@ -33,6 +33,9 @@
                             <a href="{$this->webroot}">{_('Home')}</a>
                         </li>
                         <li>
+                            <a href="/users">{__('Users')}</a>
+                        </li>
+                        <li>
                             <a href="/categories">{__('Category')}</a>
                         </li>
                         <li>
@@ -43,7 +46,11 @@
                     {if $this->Session->read('Auth.User')}
                          <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img alt="" src="{$this->Session->read('Auth.User.avatar')}" width="20" class="avatar" height="20"> <i class="fa fa-caret-down"></i>
+                            {$this->Html->image($this->Session->read('Auth.User.avatar'), [
+                                'class' => 'avatar',
+                                'alt' => 'avatar'
+                            ])}
+                            <i class="fa fa-caret-down"></i>
                         </a>
 
                         <ul class="dropdown-menu dropdown-user">
@@ -53,7 +60,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="/users/{$this->Session->read('Auth.User.id')}"><i class="fa fa-user fa-fw"></i> {_('Profile')} </a>
+                                <a href="/users/view/{$this->Session->read('Auth.User.id')}"><i class="fa fa-user fa-fw"></i> {_('Profile')} </a>
                             </li>
                             <li>
                                 <a href="/users/logout"><i class="fa fa-sign-out fa-fw"></i> {_('Logout')} </a>

@@ -85,6 +85,9 @@ class User extends AppModel
         ]
     ];
 
+    // avatar path
+    public $avatarPath = 'uploads';
+
     public function beforeSave($options = [])
     {
         if (isset($this->data[$this->alias]['password'])) {
@@ -104,6 +107,7 @@ class User extends AppModel
                 if (!isset($val['User']['avatar']) || !$val['User']['avatar']) {
                     $results[$key]['User']['avatar'] = 'noavatar.png';
                 }
+                $results[$key]['User']['avatar'] = $this->avatarPath . DS . $results[$key]['User']['avatar'];
             }
         }
 

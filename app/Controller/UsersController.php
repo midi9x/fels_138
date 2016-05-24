@@ -5,13 +5,12 @@ class UsersController extends AppController
 {
     protected $savePath = APP . WEBROOT_DIR . DS . 'img' . DS . 'uploads' . DS;
     protected $tempPath = APP . WEBROOT_DIR . DS . 'files' . DS . 'temp' . DS;
-
+    
     public function beforeFilter()
     {
         parent::beforeFilter();
         $this->Auth->allow('register', 'login', 'logout', 'update', 'view');
     }
-
 
     public $helper = ['ShowContent'];
 
@@ -30,8 +29,16 @@ class UsersController extends AppController
         'UserCommon',
         'Word'
     ];
+    
+    public $paginate = [
+        'limit' => 5,
+        'order' => [
+            'User.id' => 'desc'
+        ],
+        'recursive' => -1
+    ];
 
-    public function register()
+    public function register() 
     {
         if ($this->request->is('post')) {
             $this->User->create();
@@ -72,7 +79,7 @@ class UsersController extends AppController
         if (!$user) {
             throw new NotFoundException(__('User Not Found'));
         }
-        if ($this->request->is(array('post'))) {
+        if ($this->request->is(['post'])) {
             $dataUpdate = $this->processDataUpdate($this->request->data);
             $fileName = $dataUpdate['fileName'];
             if (!$fileName) {
@@ -83,6 +90,7 @@ class UsersController extends AppController
             $this->User->id = $id;
             if ($this->User->save($dataUpdate['data'])) {
                 $this->Session->setFlash(__('Profile has been updated.'));
+                
                 return $this->redirect(['action' => 'index']);
             }
             unlink($this->savePath . $fileName);
@@ -92,8 +100,7 @@ class UsersController extends AppController
     }
 
     public function view($id = null)
-    {
-
+    {        
         if (!$id) {
             throw new NotFoundException(__('User Not Found!'));
         }
@@ -139,5 +146,30 @@ class UsersController extends AppController
         }
 
         return ['data' => $data, 'fileName' => $fileName];
+    }
+
+    public function index()
+    {
+        $this->Paginator->settings = $this->paginate;
+        $this->set('users', $this->Paginator->paginate('User'));
+    }
+
+    public function delete($id) 
+    {
+        if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
+        }
+
+        if ($this->User->delete($id)) {
+            $this->Session->setFlash(
+                __('The user with id: %s has been deleted.', h($id)), 'success'
+            );
+        } else {
+            $this->Flash->error(
+                __('The user with id: %s could not be deleted.', h($id)), 'errors'
+            );
+        }
+
+        return $this->redirect(['action' => 'index']);
     }
 }

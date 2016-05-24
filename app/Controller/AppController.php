@@ -48,6 +48,8 @@ class AppController extends Controller
                     'passwordHasher' => 'Blowfish'
                 ]
             ]
-        ]
+        ],
+        'Paginator',
+        'Session'
     ];
 }
