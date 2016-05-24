@@ -12,10 +12,10 @@ class ShowContentHelper extends Helper
 
             return '';
         }
-        $options['label'] = $isFollow == self::FOLLOW ? __('Follow') : __('Unfollow');
-        $options['class'] = $isFollow == self::FOLLOW ? 'follow-button ' . $options['followClass'] : 'unfollow-button ' . $options['unfollowClass'];
+        $options['label'] = $isFollow == self::FOLLOW ? __('Unfollow') : __('Follow');
+        $options['class'] = $isFollow == self::FOLLOW ? 'unfollow ' . $options['unfollowClass'] : 'follow ' . $options['followClass'];
 
-        return '<button class="' . $options['class'] . '">' . $options['label'] . '</button>';
+        return '<button id="doFollow" class="' . $options['class'] . '">' . $options['label'] . '</button>';
     }
 
     public function showFollow($followList = [])

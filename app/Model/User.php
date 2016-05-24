@@ -104,6 +104,7 @@ class User extends AppModel
                 if (!isset($val['User']['avatar']) || !$val['User']['avatar']) {
                     $results[$key]['User']['avatar'] = 'noavatar.png';
                 }
+
             }
         }
 

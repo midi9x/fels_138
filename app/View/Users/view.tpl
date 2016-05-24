@@ -31,6 +31,7 @@
         <div class="tab-content">
             <div id="follower" class="tab-pane fade in active">
                 {$this->ShowContent->showFollow($follower)}
+                <div class="error"></div>
             </div>
             <div id="following" class="tab-pane fade">
                 {$this->ShowContent->showFollow($following)}
@@ -53,4 +54,14 @@
     </div>
 </div>
 </div>
+
+{$this->start('script')}
+    <script>
+        var followText = '{__('Follow')}';
+        var unFollowText = '{__('Unfollow')}';
+        var folowerId = {$id};
+    </script>
+    {$this->Html->script('follow')}
+{$this->end()}
+
 

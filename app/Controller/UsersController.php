@@ -6,6 +6,8 @@ class UsersController extends AppController
     protected $savePath = APP . WEBROOT_DIR . DS . 'img' . DS . 'uploads' . DS;
     protected $tempPath = APP . WEBROOT_DIR . DS . 'files' . DS . 'temp' . DS;
 
+    public $uses = ['Relationship'];
+
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -65,6 +67,7 @@ class UsersController extends AppController
         if (!$id) {
             throw new NotFoundException(__('User Not Found'));
         }
+        $this->loadModel('User');
         $user = $this->User->find('first', [
             'conditions' => ['id' => $id],
             'recursive' => -1
@@ -93,10 +96,10 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
-
         if (!$id) {
             throw new NotFoundException(__('User Not Found!'));
         }
+        $this->loadModel('User');
         $user = $this->User->find('first', [
             'recursive' => -1,
             'conditions' => ['id' => $id]
@@ -121,7 +124,8 @@ class UsersController extends AppController
             'totalWordLearned' => $totalWordLearned,
             'followType' => $followType,
             'follower' => $followList['follower'],
-            'following' => $followList['following']
+            'following' => $followList['following'],
+            'id' => $id
         ]);
     }
 
@@ -139,5 +143,37 @@ class UsersController extends AppController
         }
 
         return ['data' => $data, 'fileName' => $fileName];
+    }
+
+    public function follow($followerId)
+    {
+        if ($this->request->is('ajax')) {
+            $this->autoRender = false;
+            $requestFollow = [
+                'following_id' => $this->Auth->user('id'),
+                'follower_id' => $followerId
+            ];
+            if ($this->Relationship->save($requestFollow)) {
+                return json_encode(['success' => true]);
+            }
+            
+            return json_encode(['success' => false, 'messages' => __('Has an errors')]);
+        }
+    }
+
+    public function unFollow($followerId)
+    {
+        if ($this->request->is('ajax')) {
+            $this->autoRender = false;
+            $requestUnFollow = [
+                'following_id' => $this->Auth->user('id'),
+                'follower_id' => $followerId
+            ];
+            if ($this->Relationship->deleteAll($requestUnFollow)) {
+                return json_encode(['success' => true]);
+            }
+
+            return json_encode(['success' => false, 'messages' => __('Has an errors')]);
+        }
     }
 }
