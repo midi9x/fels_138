@@ -38,6 +38,7 @@ class AppController extends Controller
     public $helpers = ['Html', 'Form', 'Session'];
 
     public $components = [
+        'Acl',
         'Auth' => [
             'loginAction' => [
                 'controller' => 'users',
@@ -47,7 +48,11 @@ class AppController extends Controller
                 'Form' => [
                     'passwordHasher' => 'Blowfish'
                 ]
+            ],
+            'authorize' => [
+                'Actions' => ['actionPath' => 'controllers']
             ]
-        ]
+        ],
+        'Session'
     ];
 }

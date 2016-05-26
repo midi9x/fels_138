@@ -8,6 +8,8 @@ class WordsController extends AppController
 
     public $components = ['FilterWord', 'Session', 'Paginator'];
 
+    public $helpers = ['Word'];
+
     public function index()
     {
         $options = [
@@ -28,6 +30,7 @@ class WordsController extends AppController
             'Category.id', 
             'Category.name'
         ]]));
+        $this->set('acl', $this->Acl);
     }
 
     public function add() 

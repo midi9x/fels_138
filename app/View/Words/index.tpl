@@ -3,9 +3,7 @@
         <h2>{_('Word List')}</h2>
     </div>
     <div class="col-md-2 col-md-offset-6 text-right">
-        <a title="" class="btn btn-primary" href="/words/add">
-            <i class="fa fa-plus"></i> Add word
-        </a>
+        {$this->Word->showLink('<i class="fa fa-plus"></i>', 'btn btn-primary', 'add')}
     </div>
 </div>
 
@@ -63,16 +61,13 @@
                     <td>﻿{$word['Word']['id']}</td>
                     <td>﻿{$word['Word']['content']}</td>
                     <td>﻿
-                        {$this->Html->link('<i class="fa fa-pencil"></i> Edit', ['action' => 'edit', $word['Word']['id']], [
-                            'class' => 'btn btn-warning',
-                            'escape' => false
-                        ])}
-
-                        {$this->Form->postLink('<i class="fa fa-trash"></i> Delete', ['action' => 'delete', $word['Word']['id']], [
-                            'confirm' => 'Are you sure to delete?',
-                            'class' => 'btn btn-danger',
-                            'escape' => false
-                        ])}
+                        {$this->Word->showLink(
+                            '<i class="fa fa-pencil"></i>', 
+                            'btn btn-primary', 
+                            'edit', 
+                            $word['Word']['id']
+                        )}
+                        {$this->Word->showDelete($word['Word']['id'])}
                     </td>
                 </tr>
             {/foreach}

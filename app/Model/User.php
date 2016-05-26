@@ -9,8 +9,39 @@ App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
  */
 class User extends AppModel
 {
+    public function bindNode($user) {
+        return [
+            'model' => 'Group', 
+            'foreign_key' => $user['User']['group_id']
+        ];
+    }
+
+    public $actsAs = ['Acl' => ['type' => 'requester', 'enabled' => false]];
+
+    public function parentNode() {
+        if (!$this->id && empty($this->data)) {
+            return null;
+        }
+        if (isset($this->data['User']['group_id'])) {
+            $groupId = $this->data['User']['group_id'];
+        } else {
+            $groupId = $this->field('group_id');
+        }
+        if (!$groupId) {
+            return null;
+        }
+        
+        return ['Group' => ['id' => $groupId ]];
+    }
+
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
+    public $belongsTo = [
+        'Group' => [
+            'className' => 'Group'
+        ]
+    ];
+    
     /**
      * hasMany associations
      *
@@ -93,7 +124,7 @@ class User extends AppModel
     public function afterFind($results, $primary = false)
     {
         foreach ($results as $key => $val) {
-            if (!$val['User']['avatar']) {
+            if (!isset($val['User']['avatar'])) {
                 $results[$key]['User']['avatar'] = '/uploads/noavatar.png';
             }
         }
