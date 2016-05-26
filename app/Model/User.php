@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+
 /**
  * User Model
  *
@@ -73,14 +74,20 @@ class User extends AppModel
 
         'password_confirmation' => [
             //not use equalTo in cakephp 2.4.1 :((
-            'rule' =>['equalToField', 'password'],
+            'rule' => ['equalToField', 'password'],
             'message' => 'Please confirm the passsword'
         ],
+        'avatar_image' => [
+            'valid' => [
+                'rule' => ['mimeType', ['image/png', 'image/jpg', 'image/jpeg']],
+                'message' => 'Please only upload images (png, jpg, jpeg).',
+            ],
+        ]
     ];
 
     public function beforeSave($options = [])
     {
-        if ($this->data[$this->alias]['password']) {
+        if (isset($this->data[$this->alias]['password'])) {
             $passwordHasher = new BlowfishPasswordHasher();
             $this->data[$this->alias]['password'] = $passwordHasher->hash(
                 $this->data[$this->alias]['password']
@@ -92,9 +99,11 @@ class User extends AppModel
 
     public function afterFind($results, $primary = false)
     {
-        foreach ($results as $key => $val) {
-            if (!$val['User']['avatar']) {
-                $results[$key]['User']['avatar'] = '/uploads/noavatar.png';
+        if (is_array($results) && count($results) > 0) {
+            foreach ($results as $key => $val) {
+                if (!isset($val['User']['avatar']) || !$val['User']['avatar']) {
+                    $results[$key]['User']['avatar'] = 'noavatar.png';
+                }
             }
         }
 

@@ -29,24 +29,26 @@ App::uses('AppController', 'Controller');
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class PagesController extends AppController {
+class PagesController extends AppController
+{
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
+    /**
+     * This controller does not use a model
+     *
+     * @var array
+     */
     public $uses = array();
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @return void
- * @throws NotFoundException When the view file could not be found
- *  or MissingViewException in debug mode.
- */
-    public function display() {
+    /**
+     * Displays a view
+     *
+     * @param mixed What page to display
+     * @return void
+     * @throws NotFoundException When the view file could not be found
+     *  or MissingViewException in debug mode.
+     */
+    public function display()
+    {
         $path = func_get_args();
 
         $count = count($path);
@@ -76,4 +78,28 @@ class PagesController extends AppController {
         }
     }
 
+
+    public function index()
+    {
+        $id = $this->Auth->user('id');
+        $this->loadModel('User');
+        $user = $this->User->find('first', [
+            'recursive' => -1,
+            'conditions' => ['id' => $id]
+        ]);
+        $this->loadModel('Activity');
+        $activities = $this->Activity->find('list', [
+            'recursive' => -1,
+            'conditions' => ['user_id' => $id],
+            'fields' => ['id', 'content'],
+            'order' => ['created DESC'],
+            'limit' => 20
+        ]);
+        $totalWordLearned = 12;
+        $this->set([
+            'user' => $user['User'],
+            'activities' => $activities,
+            'totalWordLearned' => $totalWordLearned,
+        ]);
+    }
 }

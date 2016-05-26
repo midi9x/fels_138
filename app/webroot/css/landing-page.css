@@ -289,3 +289,49 @@ p.copyright {
 span.space {
     margin-left: 40px;
 }
+.left-side-bar {
+    border-right: 1px solid #bebebe;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.left-side-bar .row-item {
+    margin: 5px 0px;
+}
+
+.avatar-img {
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}
+
+.row-content-data ul li {
+    border: none;
+}
+
+.main-content {
+    padding-left: 30px !important;
+}
+
+.title.border-bottom div {
+    border-bottom: 1px solid #bebebe;
+}
+
+.link-group a {
+    width: 100px;
+}
+
+.float-right {
+    float: right;
+}
+
+.follow-title.title {
+    margin-bottom: 10px;
+}
+
+.follow-content .nav-tabs {
+    margin-bottom: 5px;
+}
+
+.row-content-data {
+    margin-bottom: 10px;
+}
